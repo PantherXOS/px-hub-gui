@@ -1,6 +1,6 @@
 #include <QCommandLineParser>
 #include <QApplication>
-#include "PXMainWindow.h"
+#include "MainWindow.h"
 
 #include "Logger.h"
 
@@ -14,7 +14,9 @@ int main (int argc, char** argv) {
     QApplication::setApplicationName(APPLICATION_NAME);
     QApplication::setApplicationVersion(APPLICATION_VERSION);
 
-    PXMainWindow* pxWin = new PXMainWindow("Hub Test",QIcon::fromTheme("px-hub"));
-    pxWin->show();
+    MainWindow window;
+    window.show();
+
+   
     return app->exec(); 
 }
