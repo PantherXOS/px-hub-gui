@@ -46,6 +46,7 @@ interface HubReader{
         getLastMessage @1 (accountID: Text ) -> (message: HUBMessage);
         getAccountStatus @2 (accountID: Text) -> (accountStatus: HUBAccountStatus);
         getAccountsStatus @3 () -> (accountsStatus:List(HUBAccountStatus));
+        getAllMessages @4 (accountID: Text, count: Int8) -> (messages:List(HUBMessage));
 }
 
 struct HubEvent {

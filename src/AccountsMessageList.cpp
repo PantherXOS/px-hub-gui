@@ -3,8 +3,8 @@
 AccountsMessageList::AccountsMessageList(AccountObject account) :
  PXContentWidget(account.getTitle().c_str()){
      RPCHubClient rpcHubClient;
-     vector<MessageObject> messageList = rpcHubClient.getMessageList(MAX_MESSAGE_COUNT);
-
+     vector<MessageObject> messageList = rpcHubClient.getAllMessageList(account.getTitle().c_str(), MAX_MESSAGE_COUNT);
+     cout<<"*************"<<messageList.size()<<endl;
      QListWidget* listWidget = new QListWidget();
         listWidget->setStyleSheet(QString::fromStdString("QListWidget {background-color:transparent;}"));
         for(auto &m : messageList){

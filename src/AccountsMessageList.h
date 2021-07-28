@@ -11,6 +11,7 @@
 #include "AccountObject.h"
 #include "RPCHubClient.h"
 #include "AccountsMessageListItem.h"
+#include "Logger.h"
 
 #define MAX_MESSAGE_COUNT 50
 

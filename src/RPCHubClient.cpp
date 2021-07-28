@@ -72,3 +72,32 @@ vector<MessageObject> RPCHubClient::getMessageList(int n) {
     }
     return messageList;
 }
+
+vector<MessageObject> RPCHubClient::getAllMessageList(string acc,int n){
+    vector<MessageObject> messageList;
+    string addr = HUB_SERVER_ADDRESS;
+    capnp::EzRpcClient rpcClient(addr);
+    auto &waitScope = rpcClient.getWaitScope();
+    HubReader::Client client = rpcClient.getMain<HubReader>();
+    try {
+        auto msgReq = client.getAllMessagesRequest();
+        msgReq.setCount(n);
+        msgReq.setAccountID(acc);
+        auto msgRes = msgReq.send().wait(waitScope);
+        for(auto msg : msgRes.getMessages()){
+            MessageObject msgObj;
+            msgObj.setIcon(msg.getIcon().cStr());
+            msgObj.setMessage(msg.getMessage().cStr());
+            msgObj.setSender(msg.getSender().cStr());
+            msgObj.setLink(msg.getLink().cStr());
+            msgObj.setAltLink(msg.getAltLink().cStr());
+            msgObj.setTime(msg.getTime().cStr());
+            msgObj.setUnread(msg.getUnread());
+            messageList.push_back(msgObj);
+        }
+    } catch (kj::Exception e){
+        cout << e.getDescription().cStr() << endl;
+    }
+    return messageList;
+
+}
