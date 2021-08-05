@@ -9,7 +9,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 find_package(Qt5DBus REQUIRED)
-find_package(Qt5 COMPONENTS Core Gui Widgets WebEngineWidgets)
+find_package(Qt5 COMPONENTS Core Gui Widgets )
 ########
 
 
@@ -44,7 +44,7 @@ add_executable(px-hub-gui
         ${CapnpSources} ${CapnpHeaders}      
         )
 
-target_link_libraries(px-hub-gui Qt5::Core Qt5::Widgets Qt5::Gui Qt5::WebEngineWidgets px-gui-library CapnProto::capnp-rpc )
+target_link_libraries(px-hub-gui Qt5::Core Qt5::Widgets Qt5::Gui  px-gui-library CapnProto::capnp-rpc )
 install(TARGETS px-hub-gui DESTINATION bin)
 install(FILES   desktop/px-hub-gui.desktop
                 DESTINATION share/applications)
