@@ -7,4 +7,4 @@ Terminal=false
 Type=Application
 Categories=Network;
 OnlyShowIn=LXQt;
-MimeType=x-scheme-handler/px-desktop-wiki;
+MimeType=x-scheme-handler/px-hub-gui;
