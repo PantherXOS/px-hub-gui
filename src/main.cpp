@@ -15,7 +15,7 @@ int main (int argc, char** argv) {
     QApplication::setApplicationVersion(APPLICATION_VERSION);
 
     MainWindow window;
-    window.show();
+    window.showMaximized();
 
    
     return app->exec(); 

@@ -1,10 +1,10 @@
 [Desktop Entry]
-Name=Wiki / Help
+Name=Hub 
 Comment=PantherX Hub
 Exec=px-hub-gui
 Icon=px-hub
 Terminal=false
 Type=Application
-Categories=System;Documentation;
+Categories=Network;
 OnlyShowIn=LXQt;
 MimeType=x-scheme-handler/px-desktop-wiki;

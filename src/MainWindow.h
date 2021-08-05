@@ -22,7 +22,7 @@ private:
 
 private slots:
     void searchBoxTextEdited(const QString&) override;
-    void settingsButtonPressed() override;
+   // void settingsButtonPressed() override;
     void sideBarItemHandler     (QListWidgetItem*) override;
 };
 

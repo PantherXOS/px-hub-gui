@@ -2,12 +2,15 @@
 #include <QThread>
 #include <sys/statvfs.h>
 #include "PXProgressIndicator.h"
+#include "MessagebodyWidget.h"
+#include "AccountsMessageList.h"
+
 
 MainWindow::MainWindow(QWidget *parent) :
         PXMainWindow("HUB", QIcon::fromTheme("px-hub"), "px-desktop-wiki:page=PantherX-GUI-Library/index.html", parent){
     buildSidebar();
-    topBar()->backButtonAction()->setVisible(false);
-    topBar()->forwardButtonAction()->setVisible(false);
+    topBar()->settingsButtonAction()->setVisible(false);
+    topBar()->helpButtonAction()->setVisible(false);
 }
 
 
@@ -45,8 +48,12 @@ void MainWindow::buildSidebar(){
         if(count == 0)
             setDefaultItem(item);    //first item should be selected as default
         count++;
+        connect(accountMessageList, &AccountsMessageList::messageClicked, [&](const MessageObject &msg,const  AccountObject &acc){            
+            auto messageBodyWidget = new MessageBodyWidget(msg,acc);
+            addContent(messageBodyWidget);
+        });
     }
-}
+} 
 
 PXContentWidget *MainWindow::buildView(){
     auto label = new QLabel("Content Area");
@@ -81,12 +88,11 @@ void MainWindow::searchBoxTextEdited(const QString &text){
     qDebug() << contentWidget()->currentWidget() << text;
 }
 
-void MainWindow::settingsButtonPressed() {
-    qDebug() << "Settings Button Handler";
-    setSideBarVisible(!isSideBarVisible());
-}
+// void MainWindow::settingsButtonPressed() {
+//     qDebug() << "Settings Button Handler";
+//     setSideBarVisible(!isSideBarVisible());
+// }
 
 void MainWindow::sideBarItemHandler (QListWidgetItem* item){
     PXMainWindow::sideBarItemHandler(item);
-    qDebug() << item;
 }

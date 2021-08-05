@@ -39,7 +39,8 @@ add_executable(px-hub-gui
         src/RPCHubClient.cpp            src/RPCHubClient.h
         src/AccountUtils.cpp            src/AccountUtils.h 
         src/AccountsMessageList.cpp     src/AccountsMessageList.h 
-        src/AccountsMessageListItem.h   src/Settings.h
+        src/AccountsMessageListItem.h   src/Settings.h        
+        src/MessagebodyWidget.h 
         ${CapnpSources} ${CapnpHeaders}      
         )
 

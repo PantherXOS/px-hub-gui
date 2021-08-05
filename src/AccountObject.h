@@ -73,6 +73,14 @@ public:
         AccountObject::title = title;
     }
 
+    const string getID() const {
+        return id;
+    }
+
+    void setID(const string id) {
+        AccountObject::id = id;
+    }
+
     Status getStatus() const {
         return status;
     }
@@ -83,7 +91,7 @@ public:
 
 private:
     int unread;
-    string time, type,icon,link,altLink,title;
+    string time, type,icon,link,altLink,title,id;
     Status  status;
 
 };

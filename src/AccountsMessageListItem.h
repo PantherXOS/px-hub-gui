@@ -23,9 +23,13 @@
 #include "Settings.h"
 #include "MessageObject.h"
 
-class AccountsMessageListItem : public QWidget {
+class AccountsMessageListItem : public QListWidgetItem {
 public:
-    AccountsMessageListItem(MessageObject &message, int width, QWidget *parent = nullptr) : QWidget(parent) {
+    AccountsMessageListItem(MessageObject &message, int width) { 
+        widget = new QWidget();       
+        widget->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
+        this->inputMessage = message;
+        width = widget->size().width();
         messageLink = QString::fromStdString(message.getLink());
         auto messageSender = new QLabel;
         QFont messageSenderFont = messageSender->font();
@@ -98,13 +102,12 @@ public:
         Tlayout->setMargin(0);
         Tlayout->setSpacing(0);
         Tlayout->setContentsMargins(7,0,0,0);
-        auto messageIcon = buildIconFromTheme(QString::fromStdString(message.getIcon()), QSize(MESSAGE_ICON_SIZE,MESSAGE_ICON_SIZE));
+        auto messageIcon = buildIconFromTheme(QString::fromStdString(message.getIcon()), QSize(MESSAGE_ICON_SIZE,MESSAGE_ICON_SIZE));        
         auto ilayout = new QHBoxLayout;
         ilayout->addWidget(messageIcon);
         ilayout->setMargin(0);
         ilayout->setSpacing(0);
         ilayout->setContentsMargins(3,0,0,0);
-
         
         QFrame * frame = new QFrame();
         frame->setFrameShape(QFrame::HLine);
@@ -132,11 +135,15 @@ public:
 
 
 
-        setObjectName(QString::fromStdString("PxHubItem"));
-        setLayout(flayout);
-        setSizePolicy(QSizePolicy::MinimumExpanding,QSizePolicy::Preferred);
-        setAttribute(Qt::WA_Hover);
-        setMouseTracking(true);
+        widget->setObjectName(QString::fromStdString("PxHubItem"));
+        widget->setLayout(flayout);
+        widget->setSizePolicy(QSizePolicy::MinimumExpanding,QSizePolicy::Preferred);
+        widget->setAttribute(Qt::WA_Hover);
+        widget->setMouseTracking(true);
+    }
+
+    MessageObject getMessage(){
+        return this->inputMessage;
     }
 
     QLabel *buildIconFromTheme(QString icon, QSize size){
@@ -153,8 +160,14 @@ public:
         return messageLink;
     }
 
+    QWidget* getWidget(){
+        return(this->widget);
+    }
+
 private:
+    QWidget* widget;
     QString messageLink;
+    MessageObject inputMessage;
     QString getVisibleTime(QString messageTime){
         QDateTime dt = QDateTime::fromString(messageTime, 
                                             Qt::ISODate).toLocalTime();

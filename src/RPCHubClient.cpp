@@ -38,6 +38,7 @@ vector<AccountObject> RPCHubClient::getAccountList() {
             account.setLink(act.getLink().cStr());
             account.setAltLink(act.getAltLink().cStr());
             account.setTitle(act.getAccountInfo().getTitle().cStr());
+            account.setID(act.getAccountInfo().getId().cStr());
             rsult.push_back(account);
         }
     } catch (kj::Exception e){
