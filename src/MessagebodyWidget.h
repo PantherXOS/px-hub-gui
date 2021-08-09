@@ -11,7 +11,6 @@
 #include <QUrl>
 #include <QMouseEvent>
 #include <QDateTime>
-//#include <XdgIcon>
 #include <string>
 #include <QtWidgets/QWidgetAction>
 #include <QScrollBar>
@@ -44,12 +43,7 @@ public:
 
         QFont messageContentFont = messageSender->font();
         messageContentFont.setPointSize(CONTENT_MSG_FONT_SIZE);
-        // if(message.isUnread()){
-        //     messageSenderFont.setItalic(false);
-        //     messageTimeFont.setItalic(false);
-        //     messagePreviewFont.setPointSize(MSG_UNREAD_PREVIEW_FONT_SIZE);
-        //     messagePreviewFont.setItalic(false);
-        // }
+       
         string acc = message.getSender();
         if (acc.size() > MAX_ACCOUNT_SIZE)
             acc = acc.substr(0, MAX_ACCOUNT_SIZE) + "...";
@@ -115,15 +109,6 @@ public:
         rlayout->setSpacing(0);
         rlayout->setContentsMargins(0, 0, 0, 0);
 
-        // auto qlayout = new QHBoxLayout;
-        // qlayout->addLayout(llayout);
-        // qlayout->addLayout(rlayout);
-        // qlayout->setMargin(0);
-        // qlayout->setSpacing(0);
-        // qlayout->setContentsMargins(0, 0, 0, 0);
-        // QSpacerItem *spacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-        // qlayout->addItem(spacer);
-
         QFontMetrics fm(messageContentFont);
         int textWidth = fm.horizontalAdvance(QString::fromStdString(message.getMessage()));
         auto _msg = message.getMessage();
@@ -132,19 +117,11 @@ public:
         messageContent->setText(QString::fromStdString(_msg));
         messageContent->setFont(messageContentFont);
         messageContent->setAlignment(Qt::AlignTop);
+        messageContent->setReadOnly(true);
         //messageContent->setWordWrap(true);
         messageContent->setContentsMargins(0, 0, 0, 0);
 
-        // QFrame *frame = new QFrame();
-        // frame->setFrameShape(QFrame::WinPanel);
-        // frame->setFrameShadow(QFrame::Shadow::Sunken);
-        // frame->setLineWidth(10);
-        // frame->setMidLineWidth(0);
-        // auto sepraterlayout = new QVBoxLayout;
-        // //sepraterlayout->addLayout(qlayout);
-        // sepraterlayout->addWidget(frame);
-        // sepraterlayout->setAlignment(Qt::AlignBottom);
-
+        
         auto Tlayout = new QVBoxLayout;
         Tlayout->addLayout(llayout);
         Tlayout->addLayout(tolayout);

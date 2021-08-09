@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     buildSidebar();
     topBar()->settingsButtonAction()->setVisible(false);
     topBar()->helpButtonAction()->setVisible(false);
+    topBar()->searchBox()->setDisabled(true);
 }
 
 
