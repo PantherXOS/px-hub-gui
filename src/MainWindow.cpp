@@ -38,11 +38,15 @@ bool getFreeDiskSpace(QString path, QString &result){
 void MainWindow::buildSidebar(){
     auto section = new PXSideBarItem("Accounts",PXSideBarItem::ItemType::Item, nullptr);
     addItemToSideBar(section);
+    AccountObject nopAccount;
+    auto overViewMessageList = new AccountsMessageList(nopAccount,true);
+    auto overView = new PXSideBarItem("Overview",PXSideBarItem::ItemType::Subitem, overViewMessageList);
+    addItemToSideBar(overView);
     RPCHubClient rpcHubClient;
     vector<AccountObject> accountList= rpcHubClient.getAccountList();
     int count = 0;
     for(auto account:accountList){
-        auto accountMessageList = new AccountsMessageList(account);
+        auto accountMessageList = new AccountsMessageList(account,false);
         auto item = new PXSideBarItem(account.getTitle().c_str(), PXSideBarItem::ItemType::Subitem, accountMessageList);
         item->setIcon(QIcon::fromTheme(account.getIcon().c_str()));
         addItemToSideBar(item);

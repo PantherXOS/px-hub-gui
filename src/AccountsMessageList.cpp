@@ -1,9 +1,13 @@
 #include "AccountsMessageList.h"
 
-AccountsMessageList::AccountsMessageList(AccountObject account) :
+AccountsMessageList::AccountsMessageList(AccountObject account, bool overview) :
  PXContentWidget(account.getTitle().c_str()), accountObject(account){
      RPCHubClient rpcHubClient;
-     vector<MessageObject> messageList = rpcHubClient.getAllMessageList(account.getID().c_str(), MAX_MESSAGE_COUNT);
+     vector<MessageObject> messageList;
+     if(overview)
+        messageList = rpcHubClient.getMessageList(OVERVIEW_MESSAGE_COUNT);
+     else
+        messageList = rpcHubClient.getAllMessageList(account.getID().c_str(), MAX_MESSAGE_COUNT);
      QListWidget* listWidget = new QListWidget();
         listWidget->setStyleSheet(QString::fromStdString("QListWidget {background-color:transparent;}"));
         for(auto &m : messageList){

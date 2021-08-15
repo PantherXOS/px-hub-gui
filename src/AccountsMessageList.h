@@ -14,12 +14,12 @@
 #include "Logger.h"
 #include "MessagebodyWidget.h"
 
-#define MAX_MESSAGE_COUNT 50
+
 
 class AccountsMessageList : public PXContentWidget {
 Q_OBJECT
 public:
-    AccountsMessageList(AccountObject account);
+    AccountsMessageList(AccountObject account, bool overview);
     AccountObject getAccountObject();
 
 private slots:
