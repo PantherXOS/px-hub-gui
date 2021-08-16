@@ -26,5 +26,6 @@
 #define MAX_MESSAGE_COUNT                   50
 #define MESSAGE_VIEW_COUNT                  6
 #define OVERVIEW_MESSAGE_COUNT             100
+#define OPEN_BUTTON_SIZE                    80
 
 #endif //LXQT_PANEL_SETTINGS_H

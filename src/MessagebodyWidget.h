@@ -19,6 +19,7 @@
 #include <QIcon>
 #include <QListWidget>
 #include <QTextEdit>
+#include <QPushButton>
 
 #include "Settings.h"
 #include "MessageObject.h"
@@ -139,10 +140,14 @@ public:
         messagelayout->setSpacing(0);
         messagelayout->setContentsMargins(7, 0, 0, 0);
 
+        auto open = new QPushButton("Open", this);
+        open->setFixedWidth(OPEN_BUTTON_SIZE);
+        connect(open, SIGNAL (released()), this, SLOT (openButtonHandler()));
         auto glayout = new QVBoxLayout;
         //glayout->addLayout(ilayout);
         glayout->addLayout(Tlayout);
         glayout->addLayout(messagelayout);
+        glayout->addWidget(open);
         glayout->setMargin(5);
         glayout->setSpacing(4);
         // glayout->setContentsMargins(0,0,0,0);
@@ -177,6 +182,10 @@ public:
     {
         return messageLink;
     }
+private slots:
+    void openButtonHandler() {
+    QDesktopServices::openUrl(QUrl(messageLink));    
+}
 
 private:
     QString messageLink;
