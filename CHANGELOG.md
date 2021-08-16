@@ -5,14 +5,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 
-## [0.0.5]
-### changes
-- Add Open link button
-
-
 ## [0.0.4]
 ### changes
 - Add Overview to sidebar
+- Add Open link button
 
 
 ## [0.0.3]
