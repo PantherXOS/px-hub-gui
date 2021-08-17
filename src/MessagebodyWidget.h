@@ -117,6 +117,7 @@ public:
         auto messageContent = new QTextEdit;
         messageContent->setText(QString::fromStdString(_msg));
         messageContent->setFont(messageContentFont);
+        messageContent->setoptio
         messageContent->setAlignment(Qt::AlignTop);
         messageContent->setReadOnly(true);
         //messageContent->setWordWrap(true);
@@ -141,13 +142,19 @@ public:
         messagelayout->setContentsMargins(7, 0, 0, 0);
 
         auto open = new QPushButton("Open", this);
-        open->setFixedWidth(OPEN_BUTTON_SIZE);
+        open->setFixedWidth(OPEN_BUTTON_SIZE);        
+        open->setStyleSheet("background-color: rgb(60,140,230); color: white;");
+
+        auto buttonLayout = new QVBoxLayout;
+        buttonLayout->addWidget(open);
+        buttonLayout->setContentsMargins(7, 0, 0, 0);
+       
         connect(open, SIGNAL (released()), this, SLOT (openButtonHandler()));
         auto glayout = new QVBoxLayout;
         //glayout->addLayout(ilayout);
         glayout->addLayout(Tlayout);
         glayout->addLayout(messagelayout);
-        glayout->addWidget(open);
+        glayout->addLayout(buttonLayout);
         glayout->setMargin(5);
         glayout->setSpacing(4);
         // glayout->setContentsMargins(0,0,0,0);
