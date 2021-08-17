@@ -116,8 +116,7 @@ public:
 
         auto messageContent = new QTextEdit;
         messageContent->setText(QString::fromStdString(_msg));
-        messageContent->setFont(messageContentFont);
-        messageContent->setoptio
+        messageContent->setFont(messageContentFont);        
         messageContent->setAlignment(Qt::AlignTop);
         messageContent->setReadOnly(true);
         //messageContent->setWordWrap(true);
