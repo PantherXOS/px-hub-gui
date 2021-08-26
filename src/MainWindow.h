@@ -12,7 +12,7 @@
 class MainWindow : public PXMainWindow {
 Q_OBJECT
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QString defultUrl, QWidget *parent = nullptr);
     ~MainWindow() override;
 
 private:
@@ -21,9 +21,13 @@ private:
     PXContentWidget *buildView();
 
 private slots:
+    
     void searchBoxTextEdited(const QString&) override;
    // void settingsButtonPressed() override;
     void sideBarItemHandler     (QListWidgetItem*) override;
+
+private:
+    QString _defaultUrl;
 };
 
 #endif //EXAMPLE_MAINWINDOW

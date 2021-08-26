@@ -6,8 +6,9 @@
 #include "AccountsMessageList.h"
 
 
-MainWindow::MainWindow(QWidget *parent) :
-        PXMainWindow("HUB", QIcon::fromTheme("px-hub"), "px-desktop-wiki:page=PantherX-GUI-Library/index.html", parent){
+MainWindow::MainWindow(QString defultUrl, QWidget *parent) :
+        PXMainWindow("HUB", QIcon::fromTheme("px-hub"), "px-desktop-wiki:page=PantherX-GUI-Library/index.html", parent),
+        _defaultUrl(defultUrl){
     buildSidebar();
     topBar()->settingsButtonAction()->setVisible(false);
     topBar()->helpButtonAction()->setVisible(false);
@@ -50,8 +51,16 @@ void MainWindow::buildSidebar(){
         auto item = new PXSideBarItem(account.getTitle().c_str(), PXSideBarItem::ItemType::Subitem, accountMessageList);
         item->setIcon(QIcon::fromTheme(account.getIcon().c_str()));
         addItemToSideBar(item);
-        if(count == 0)
-            setDefaultItem(item);    //first item should be selected as default
+        if(count == 0){
+               setDefaultItem(item);    //first item should be selected as default
+        }
+        
+        if(!_defaultUrl.isEmpty()){
+            if(account.getTitle() == _defaultUrl.toStdString()){
+                setDefaultItem(item);                 
+            }
+        }
+           
         count++;
         connect(accountMessageList, &AccountsMessageList::messageClicked, [&](const MessageObject &msg,const  AccountObject &acc){            
             auto messageBodyWidget = new MessageBodyWidget(msg,acc);
