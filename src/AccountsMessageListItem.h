@@ -19,6 +19,7 @@
 #include <QFont>
 #include <QIcon>
 #include <QListWidget>
+#include <QGuiApplication>
 
 #include "Settings.h"
 #include "MessageObject.h"
@@ -28,6 +29,10 @@ public:
     AccountsMessageListItem(MessageObject &message, int width) { 
         widget = new QWidget();       
         widget->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
+        auto widgetStyleSheet = "QWidget:hover{background-color: %1} Qwidget{background-color: transparent}";
+        auto pal = QGuiApplication::palette();
+        auto bgcolor =  pal.color(QPalette::Normal, QPalette::Highlight);
+        widget->setStyleSheet(QString::fromLatin1(widgetStyleSheet).arg(bgcolor.name()));
         this->inputMessage = message;
         width = widget->size().width();
         messageLink = QString::fromStdString(message.getLink());
@@ -51,6 +56,7 @@ public:
             acc = acc.substr(0,MAX_ACCOUNT_SIZE)+"...";
         messageSender->setText(QString::fromStdString(acc));
         messageSender->setFont(messageSenderFont);
+        messageSender->setStyleSheet("QLabel{background-color:transparent}");
 
         auto llayout = new QHBoxLayout;
         llayout->addWidget(messageSender);
@@ -63,6 +69,7 @@ public:
         getVisibleTime(QString::fromStdString(message.getTime()));
         messageTime->setText(getVisibleTime(QString::fromStdString(message.getTime())));
         messageTime->setFont(messageTimeFont);
+        messageTime->setStyleSheet("QLabel{background-color:transparent}");
 
         auto rlayout = new QHBoxLayout;
         rlayout->addWidget(messageTime);
@@ -94,6 +101,7 @@ public:
         messagePreview->setText(QString::fromStdString(_msg));
         messagePreview->setFont(messagePreviewFont);
         messagePreview->setContentsMargins(0,0,0,0);
+        messagePreview->setStyleSheet("QLabel{background-color:transparent}");
 
         auto Tlayout = new QVBoxLayout;
         Tlayout->addLayout(qlayout);
@@ -135,7 +143,7 @@ public:
 
 
 
-        widget->setObjectName(QString::fromStdString("PxHubItem"));
+        
         widget->setLayout(flayout);
         widget->setSizePolicy(QSizePolicy::MinimumExpanding,QSizePolicy::Preferred);
         widget->setAttribute(Qt::WA_Hover);

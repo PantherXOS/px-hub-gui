@@ -43,29 +43,29 @@ void MainWindow::buildSidebar(){
     auto overViewMessageList = new AccountsMessageList(nopAccount,true);
     auto overView = new PXSideBarItem("Overview",PXSideBarItem::ItemType::Subitem, overViewMessageList);
     addItemToSideBar(overView);
+    overViewMessageList->setAttribute(Qt::WA_Hover);
+    connect(overViewMessageList, &AccountsMessageList::messageClicked, [&](const MessageObject &msg,const  AccountObject &acc){            
+            auto messageBodyWidget = new MessageBodyWidget(msg,acc);
+            addContent(messageBodyWidget);
+        });
+    setDefaultItem(overView);
     RPCHubClient rpcHubClient;
     vector<AccountObject> accountList= rpcHubClient.getAccountList();
-    int count = 0;
     for(auto account:accountList){
         auto accountMessageList = new AccountsMessageList(account,false);
         auto item = new PXSideBarItem(account.getTitle().c_str(), PXSideBarItem::ItemType::Subitem, accountMessageList);
         item->setIcon(QIcon::fromTheme(account.getIcon().c_str()));
         addItemToSideBar(item);
-        if(count == 0){
-               setDefaultItem(item);    //first item should be selected as default
-        }
         
         if(!_defaultUrl.isEmpty()){
             if(account.getTitle() == _defaultUrl.toStdString()){
                 setDefaultItem(item);                 
             }
         }
-           
-        count++;
         connect(accountMessageList, &AccountsMessageList::messageClicked, [&](const MessageObject &msg,const  AccountObject &acc){            
             auto messageBodyWidget = new MessageBodyWidget(msg,acc);
             addContent(messageBodyWidget);
-        });
+        });       
     }
 } 
 
@@ -78,6 +78,7 @@ PXContentWidget *MainWindow::buildView(){
     layout->setAlignment(Qt::AlignCenter);
     auto widget = new PXContentWidget("Search Box");
     widget->setLayout(layout);
+    widget->setAttribute(Qt::WA_Hover);
     return widget;
 }
 
@@ -92,6 +93,7 @@ QWidget *MainWindow::buildSidebarWidget(){
     layout->addWidget(edit);
     auto widget = new QWidget(this);
     widget->setLayout(layout);
+
     return widget;
 }
 
