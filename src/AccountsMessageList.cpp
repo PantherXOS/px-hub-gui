@@ -33,5 +33,7 @@ AccountsMessageList::AccountsMessageList(AccountObject account, bool overview) :
 
 void AccountsMessageList::itemClickedHandler(QListWidgetItem *item){
     auto messageItem = (AccountsMessageListItem*)item;
-    emit messageClicked(messageItem->getMessage(),accountObject);
+    RPCHubClient rpcHubClient;
+    auto message = rpcHubClient.getMessage(accountObject.getID().c_str(), messageItem->getMessage().getMsgId());
+    emit messageClicked(message,accountObject);
 }

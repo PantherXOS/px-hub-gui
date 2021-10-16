@@ -9,11 +9,11 @@
 using namespace std;
 class MessageObject{
 private:
-    string time, message, icon, sender, link, altLink;
+    string time, message, icon, sender, link, altLink, msgId;
     bool unread;
 public:
     const string toString(){
-        string _str = "{" + sender + ", " + time + ", " + icon + ", " + link + ", " + altLink
+        string _str = "{" + sender + ", " + time + ", " + icon + ", " + link + ", " + msgId + ", " + altLink
                 + ", " + message + ", " + to_string(unread) +"}";
         return _str;
     }
@@ -25,6 +25,14 @@ public:
     void setLink(const string &link) {
         MessageObject::link = link;
     }
+    const string &getMsgId() const {
+        return msgId;
+    }
+
+    void setMsgId(const string &msgId) {
+        MessageObject::msgId = msgId;
+    }
+
 
     const string &getAltLink() const {
         return altLink;

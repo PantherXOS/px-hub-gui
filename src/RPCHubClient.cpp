@@ -66,6 +66,7 @@ vector<MessageObject> RPCHubClient::getMessageList(int n) {
             msgObj.setAltLink(msg.getAltLink().cStr());
             msgObj.setTime(msg.getTime().cStr());
             msgObj.setUnread(msg.getUnread());
+            msgObj.setMsgId(msg.getMsgId());
             messageList.push_back(msgObj);
         }
     } catch (kj::Exception e){
@@ -94,6 +95,7 @@ vector<MessageObject> RPCHubClient::getAllMessageList(string acc,int n){
             msgObj.setAltLink(msg.getAltLink().cStr());
             msgObj.setTime(msg.getTime().cStr());
             msgObj.setUnread(msg.getUnread());
+            msgObj.setMsgId(msg.getMsgId());
             messageList.push_back(msgObj);
         }
     } catch (kj::Exception e){
@@ -101,4 +103,30 @@ vector<MessageObject> RPCHubClient::getAllMessageList(string acc,int n){
     }
     return messageList;
 
+}
+
+MessageObject         RPCHubClient::getMessage(string acountId,string messageId){
+    string addr = HUB_SERVER_ADDRESS;
+    capnp::EzRpcClient rpcClient(addr);
+    auto &waitScope = rpcClient.getWaitScope();
+    HubReader::Client client = rpcClient.getMain<HubReader>();
+    MessageObject msgObj;
+    try {
+        auto msgReq = client.getMessageRequest();
+        msgReq.setAccountID(acountId);
+        msgReq.setMsgId(messageId);
+        auto msgRes = msgReq.send().wait(waitScope);
+        auto message = msgRes.getMessage();
+            msgObj.setIcon(message.getIcon().cStr());
+            msgObj.setMessage(message.getMessage().cStr());
+            msgObj.setSender(message.getSender().cStr());
+            msgObj.setLink(message.getLink().cStr());
+            msgObj.setAltLink(message.getAltLink().cStr());
+            msgObj.setTime(message.getTime().cStr());
+            msgObj.setUnread(message.getUnread());
+            msgObj.setMsgId(message.getMsgId());
+    } catch (kj::Exception e){
+        cout << e.getDescription().cStr() << endl;
+    }
+    return msgObj;
 }
