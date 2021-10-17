@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 
+## [0.0.6]
+### changes
+- Adding new RPC to read single message- tuning open button
+
+
 ## [0.0.5]
 ### changes
 - Adding opention to open application with specific account

@@ -9,11 +9,11 @@
 using namespace std;
 class MessageObject{
 private:
-    string time, message, icon, sender, link, altLink, msgId;
+    string time, message, icon, sender, link, altLink, msgId, accountId, accountTitle;
     bool unread;
 public:
     const string toString(){
-        string _str = "{" + sender + ", " + time + ", " + icon + ", " + link + ", " + msgId + ", " + altLink
+        string _str = "{" + sender + ", " + time + ", " + icon + ", " + link + ", " + msgId + ", "+ accountId + ", " + accountTitle + ", "  + altLink
                 + ", " + message + ", " + to_string(unread) +"}";
         return _str;
     }
@@ -25,6 +25,7 @@ public:
     void setLink(const string &link) {
         MessageObject::link = link;
     }
+    
     const string &getMsgId() const {
         return msgId;
     }
@@ -33,6 +34,21 @@ public:
         MessageObject::msgId = msgId;
     }
 
+    const string &getAccountId() const {
+        return accountId;
+    }
+
+    void setAccountId(const string &accountId) {
+        MessageObject::accountId = accountId;
+    }
+
+    const string &getAccountTitle() const {
+        return accountTitle;
+    }
+
+    void setAccountTitle(const string &accountTitle) {
+        MessageObject::accountTitle = accountTitle;
+    }
 
     const string &getAltLink() const {
         return altLink;

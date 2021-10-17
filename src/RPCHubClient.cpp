@@ -67,6 +67,8 @@ vector<MessageObject> RPCHubClient::getMessageList(int n) {
             msgObj.setTime(msg.getTime().cStr());
             msgObj.setUnread(msg.getUnread());
             msgObj.setMsgId(msg.getMsgId());
+            msgObj.setAccountId(msg.getAccountInfo().getId());
+            msgObj.setAccountTitle(msg.getAccountInfo().getTitle());
             messageList.push_back(msgObj);
         }
     } catch (kj::Exception e){
@@ -96,6 +98,8 @@ vector<MessageObject> RPCHubClient::getAllMessageList(string acc,int n){
             msgObj.setTime(msg.getTime().cStr());
             msgObj.setUnread(msg.getUnread());
             msgObj.setMsgId(msg.getMsgId());
+            msgObj.setAccountId(msg.getAccountInfo().getId());
+            msgObj.setAccountTitle(msg.getAccountInfo().getTitle());
             messageList.push_back(msgObj);
         }
     } catch (kj::Exception e){
@@ -125,6 +129,8 @@ MessageObject         RPCHubClient::getMessage(string acountId,string messageId)
             msgObj.setTime(message.getTime().cStr());
             msgObj.setUnread(message.getUnread());
             msgObj.setMsgId(message.getMsgId());
+            msgObj.setAccountId(message.getAccountInfo().getId());
+            msgObj.setAccountTitle(message.getAccountInfo().getTitle());
     } catch (kj::Exception e){
         cout << e.getDescription().cStr() << endl;
     }
